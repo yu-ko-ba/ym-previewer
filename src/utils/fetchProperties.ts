@@ -1,8 +1,8 @@
 import fetchHtml from "./fetchHtml"
 import PropertiesType from "./PropertiesType"
 
-const fetchProperties = async (): Promise<PropertiesType> => {
-  const dom = await fetchHtml()
+const fetchProperties = async (url: string): Promise<PropertiesType> => {
+  const dom = await fetchHtml(url)
   const metas = dom.querySelectorAll("meta")
 
   let card: string = ""
@@ -17,7 +17,6 @@ const fetchProperties = async (): Promise<PropertiesType> => {
     const property = meta.attributes.property
     const name = meta.attributes.name
     const content = meta.attributes.content
-    // console.log(`property: ${property}\nname: ${name}\ncontent: ${content}\n`);
     if (name === "twitter:card") {
       card = content
     }

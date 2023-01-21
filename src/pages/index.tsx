@@ -1,6 +1,7 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
+import { Button, Container, Stack, TextField, Typography } from '@mui/material'
 import Head from 'next/head'
 import React, { useState } from 'react'
+import copyToClipboard from '../utils/copyToClipboard'
 
 export default function Home() {
   const [ymUrl, setYmUrl] = useState("")
@@ -10,7 +11,7 @@ export default function Home() {
       <Head>
         <title>YM Previewer for Twitter</title>
       </Head>
-      <Typography>シェアしたいYouTube MusicのURLを入力してください</Typography>
+      <Typography>TwitterでシェアしたいYouTube Musicの曲のリンクを入力してください</Typography>
       <TextField
         label="URL"
         value={ymUrl}
@@ -18,31 +19,45 @@ export default function Home() {
           setYmUrl(e.target.value)
           setShareUrl(`https://ym-previewer.vercel.app/${e.target.value.slice(34)}`)
         }}
+        margin="dense"
         multiline
         fullWidth
       />
       <Typography>こちらのURLをツイートに貼ってください</Typography>
       <Typography>{shareUrl}</Typography>
-      <Button
-        variant="contained"
-        onClick={() => {
-          try {
-            navigator.share({ url: shareUrl })
-              .catch((err: Error) => {
-                if (process.env.NODE_ENV === "development") {
-                  console.log(err)
-                }
-              })
-          } catch (err) {
-            if (process.env.NODE_ENV === "development") {
-              console.log(err)
+      <Stack spacing={2} direction="row">
+        <Button
+          variant="contained"
+          onClick={() => {
+            copyToClipboard(shareUrl)
+          }}
+          disabled={shareUrl === ""}
+          fullWidth
+        >
+          コピー
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            try {
+              navigator.share({ url: shareUrl })
+                .catch((err: Error) => {
+                  if (process.env.NODE_ENV === "development") {
+                    console.log(err)
+                  }
+                })
+            } catch (err) {
+              if (process.env.NODE_ENV === "development") {
+                console.log(err)
+              }
             }
-          }
-        }}
-        fullWidth
-      >
-        シェア
-      </Button>
+          }}
+          disabled={shareUrl === ""}
+          fullWidth
+        >
+          シェア
+        </Button>
+      </Stack>
     </Container>
   )
 }

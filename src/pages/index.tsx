@@ -1,6 +1,6 @@
 import { Button, Container, Stack, TextField, Typography } from '@mui/material'
-import Head from 'next/head'
 import React, { useState } from 'react'
+import HeadWithOGP from '../components/HeadWithOGP'
 import copyToClipboard from '../utils/copyToClipboard'
 
 export default function Home() {
@@ -8,9 +8,12 @@ export default function Home() {
   const [shareUrl, setShareUrl] = useState("")
   return (
     <Container maxWidth="xs">
-      <Head>
-        <title>YM Previewer for Twitter</title>
-      </Head>
+      <HeadWithOGP
+        url='https://ym-previewer.vercel.app'
+        title='YM previewer for Twitter'
+        description='YouTube MusicのリンクをTwitterでカード表示するための中間サイトです'
+        imageUrl='https://raw.githubusercontent.com/yu-ko-ba/ym-previewer/main/screenshot.png'
+      />
       <Typography>TwitterでシェアしたいYouTube Musicの曲のリンクを入力してください</Typography>
       <TextField
         label="URL"

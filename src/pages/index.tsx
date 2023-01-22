@@ -43,7 +43,7 @@ export default function Home() {
           variant="contained"
           onClick={() => {
             try {
-              navigator.share({ url: shareUrl })
+              navigator.share({ url: shareUrl, text: "#Nowplaying\n" })
                 .catch((err: Error) => {
                   if (process.env.NODE_ENV === "development") {
                     console.log(err)

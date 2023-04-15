@@ -48,9 +48,10 @@ export default function Home() {
           variant="contained"
           onClick={async () => {
             const properties = await fetchProperties(shareUrl)
-            let text = "#Nowplaying\n"
+            let text = ""
+            text += `Title：${properties.musicTitle}\n`
             text += "\n"
-            text += `Title: ${properties.musicTitle}\n`
+            text += "#Nowplaying\n"
             try {
               navigator.share({ url: shareUrl, text: text })
                 .catch((err: Error) => {

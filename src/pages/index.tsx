@@ -2,9 +2,11 @@ import { Button, Container, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import HeadWithOGP from '../components/HeadWithOGP'
 import copyToClipboard from '../utils/copyToClipboard'
+import fetchProperties from '../utils/fetchProperties'
 
 export default function Home() {
   const [ymUrl, setYmUrl] = useState("")
+  const [musicId, setMusicId] = useState("")
   const [shareUrl, setShareUrl] = useState("")
   return (
     <Container maxWidth="xs">
@@ -20,7 +22,10 @@ export default function Home() {
         value={ymUrl}
         onChange={(e) => {
           setYmUrl(e.target.value)
-          setShareUrl(`https://ym-previewer.vercel.app/${e.target.value.slice(34)}`)
+          const id = e.target.value.slice(34)
+          setMusicId(id)
+          // setShareUrl(`https://ym-previewer.vercel.app/${id}`)
+          setShareUrl(`${new URL(location.href).origin}/${id}`)
         }}
         margin="dense"
         multiline
@@ -41,9 +46,13 @@ export default function Home() {
         </Button>
         <Button
           variant="contained"
-          onClick={() => {
+          onClick={async () => {
+            const properties = await fetchProperties(shareUrl)
+            let text = "#Nowplaying\n"
+            text += "\n"
+            text += `Title: ${properties.musicTitle}\n`
             try {
-              navigator.share({ url: shareUrl, text: "#Nowplaying\n" })
+              navigator.share({ url: shareUrl, text: text })
                 .catch((err: Error) => {
                   if (process.env.NODE_ENV === "development") {
                     console.log(err)

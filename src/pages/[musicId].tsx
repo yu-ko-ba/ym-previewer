@@ -27,7 +27,7 @@ const Music = ({title, site, player, image}: PropertiesType) => {
         <meta name="twitter:title" content="YouTube Musicで再生する" />
         <meta name="twitter:site" content={site} />
         <meta name="twitter:image" content={image} />
-        <meta name="music_title" content={image} />
+        <meta name="music_title" content={title.slice(0, -16)} />
       </Head>
       <p>YouTube Musicへリダイレクト中...</p>
     </>

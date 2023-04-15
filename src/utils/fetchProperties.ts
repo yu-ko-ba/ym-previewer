@@ -2,6 +2,10 @@ import fetchHtml from "./fetchHtml"
 import PropertiesType from "./PropertiesType"
 
 const fetchProperties = async (url: string): Promise<PropertiesType> => {
+  if (process.env.NODE_ENV === "development") {
+    console.log()
+  }
+
   const dom = await fetchHtml(url)
   const metas = dom.querySelectorAll("meta")
 
@@ -12,11 +16,18 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
   let playerWidth: string = ""
   let playerHeight: string = ""
   let image: string = ""
+  let musicTitle: string = ""
 
   for await (const meta of metas) {
     const property = meta.attributes.property
     const name = meta.attributes.name
     const content = meta.attributes.content
+    if (process.env.NODE_ENV === "development") {
+      console.log("-----------------------------------------------------------------------------------")
+      console.log(`name: ${name}`)
+      console.log(`content: ${content}`)
+      console.log(`property: ${property}`)
+    }
     if (name === "twitter:card") {
       card = content
     }
@@ -38,6 +49,13 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
     if (name === "twitter:image") {
       image = content
     }
+    if (name === "music_title") {
+      musicTitle = content
+    }
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    console.log()
   }
 
   return {
@@ -48,6 +66,7 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
     playerWidth: playerWidth,
     playerHeight: playerHeight,
     image: image,
+    musicTitle: musicTitle,
   }
 }
 

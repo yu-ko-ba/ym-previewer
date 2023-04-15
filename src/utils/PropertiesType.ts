@@ -6,6 +6,7 @@ type PropertiesType = {
   playerWidth: string
   playerHeight: string
   image: string
+  musicTitle: string
 }
 
 export default PropertiesType

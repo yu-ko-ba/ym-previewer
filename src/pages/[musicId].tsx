@@ -24,7 +24,7 @@ const Music = ({title, site, player, image, ogVideoTags}: PropertiesType) => {
     <>
       <Head>
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="YouTube Musicで再生する" />
+        <meta name="twitter:title" content={`${title} をYouTube Musicで再生する`} />
         <meta name="twitter:site" content={site} />
         <meta name="twitter:image" content={image} />
         <meta name="music_title" content={title.slice(0, -16)} />

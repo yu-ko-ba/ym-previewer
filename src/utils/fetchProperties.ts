@@ -52,7 +52,7 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
       image = content
     }
     if (name === "music_title") {
-      musicTitle = content
+      musicTitle = content.slice(0, -16)
     }
     if (property === "og:video:tag") {
       ogVideoTags.push(content)

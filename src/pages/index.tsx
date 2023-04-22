@@ -24,7 +24,6 @@ export default function Home() {
           setYmUrl(e.target.value)
           const id = e.target.value.slice(34)
           setMusicId(id)
-          // setShareUrl(`https://ym-previewer.vercel.app/${id}`)
           setShareUrl(`${new URL(location.href).origin}/${id}`)
         }}
         margin="dense"
@@ -69,6 +68,24 @@ export default function Home() {
           fullWidth
         >
           シェア
+        </Button>
+        <Button
+          variant='contained'
+          onClick={async () => {
+            const url = new URL("https://twitter.com/intent/tweet")
+            url.searchParams.append("url", shareUrl)
+            const properties = await fetchProperties(shareUrl)
+            let text = ""
+            text += "#Nowplaying\n"
+            text += `${properties.musicTitle}\n`
+            text += "\n"
+            url.searchParams.append("text", text)
+            location.assign(url)
+            }}
+          disabled={shareUrl === ""}
+          fullWidth
+        >
+          ツイート
         </Button>
       </Stack>
     </Container>

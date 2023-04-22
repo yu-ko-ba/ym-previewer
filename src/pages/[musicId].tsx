@@ -20,14 +20,16 @@ const Music = ({title, site, player, image, ogVideoTags}: PropertiesType) => {
       router.push(player)
     }
   }, [])
+
+  const musicTitle = title.slice(0, -16)
   return (
     <>
       <Head>
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={`${title} をYouTube Musicで再生する`} />
+        <meta name="twitter:title" content={`${musicTitle} をYouTube Musicで再生する`} />
         <meta name="twitter:site" content={site} />
         <meta name="twitter:image" content={image} />
-        <meta name="music_title" content={title} />
+        <meta name="music_title" content={musicTitle} />
         <meta name="ym-previewer_tags" content={ogVideoTags.join("、")} />
       </Head>
       <p>YouTube Musicへリダイレクト中...</p>

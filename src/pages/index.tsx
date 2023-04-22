@@ -79,6 +79,7 @@ export default function Home() {
             text += "#Nowplaying\n"
             text += `${properties.musicTitle}\n`
             text += "\n"
+            text += `${properties.tags}\n`
             url.searchParams.append("text", text)
             location.assign(url)
             }}

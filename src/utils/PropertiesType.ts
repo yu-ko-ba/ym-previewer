@@ -7,6 +7,8 @@ type PropertiesType = {
   playerHeight: string
   image: string
   musicTitle: string
+  ogVideoTags: string[]
+  tags: string
 }
 
 export default PropertiesType

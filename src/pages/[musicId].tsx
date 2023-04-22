@@ -13,7 +13,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   }
 }
 
-const Music = ({title, site, player, image}: PropertiesType) => {
+const Music = ({title, site, player, image, ogVideoTags}: PropertiesType) => {
   const router = useRouter()
   useEffect(() => {
     if (process.env.NODE_ENV !== "development") {
@@ -28,6 +28,7 @@ const Music = ({title, site, player, image}: PropertiesType) => {
         <meta name="twitter:site" content={site} />
         <meta name="twitter:image" content={image} />
         <meta name="music_title" content={title.slice(0, -16)} />
+        <meta name="ym-previewer_tags" content={ogVideoTags.join("、")} />
       </Head>
       <p>YouTube Musicへリダイレクト中...</p>
     </>

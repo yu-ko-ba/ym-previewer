@@ -76,9 +76,10 @@ export default function Home() {
             url.searchParams.append("url", shareUrl)
             const properties = await fetchProperties(shareUrl)
             let text = ""
-            text += "#Nowplaying\n"
+            text += "#NowPlaying\n"
             text += `${properties.musicTitle}\n`
             text += "\n"
+            text += `${properties.tags}\n`
             url.searchParams.append("text", text)
             location.assign(url)
             }}

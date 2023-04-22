@@ -16,7 +16,9 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
   let playerWidth: string = ""
   let playerHeight: string = ""
   let image: string = ""
+  const ogVideoTags: string[] = []
   let musicTitle: string = ""
+  let tags: string = ""
 
   for await (const meta of metas) {
     const property = meta.attributes.property
@@ -52,6 +54,12 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
     if (name === "music_title") {
       musicTitle = content
     }
+    if (property === "og:video:tag") {
+      ogVideoTags.push(content)
+    }
+    if (name === "ym-previewer_tags") {
+      tags = content
+    }
   }
 
   if (process.env.NODE_ENV === "development") {
@@ -66,7 +74,9 @@ const fetchProperties = async (url: string): Promise<PropertiesType> => {
     playerWidth: playerWidth,
     playerHeight: playerHeight,
     image: image,
+    ogVideoTags: ogVideoTags,
     musicTitle: musicTitle,
+    tags: tags,
   }
 }
 
